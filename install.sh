@@ -3,10 +3,10 @@
 # safe and secure install script.
 
 download() {
-    url="https://raw.githubusercontent.com/dylanaraps/promptless"
-    url="${url}/master/promptless.sh"
+    url="https://raw.githubusercontent.com/sourtaste000/promptmore"
+    url="${url}/master/promptmore.sh"
 
-    curl "$url" > ~/promptless.sh || {
+    curl "$url" > ~/promptmore.sh || {
         printf '%s\n' "error: Couldn't download promptless." >&2
         exit 1
     }
@@ -23,7 +23,7 @@ main() {
     download
     get_shell
 
-    printf '%s\n' ". ~/promptless.sh" >> "$rc"
+    printf '%s\n' ". ~/promptmore.sh" >> "$rc"
     printf '%s\n' "Installation complete. Relaunch your shell."
 }
 
