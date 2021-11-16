@@ -1,6 +1,4 @@
 # shellcheck disable=SC2148
-# This script is written for ZSH, which is not supported by shellcheck
-# To use this prompt, you must use a Nerd Font in your terminal, which can be downloaded here: https://www.nerdfonts.com/font-downloads
 # TODO: Add support for other shells, support multiple 'extras', eg. displaying the git branch ad the node project version at the same time
 function batt_level() {
     level=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
@@ -37,7 +35,7 @@ function node_project_ver() {
             extras="on %F{green} Unknown%F{white} using %F{green} $(node -v)%F{white} "
         fi
     fi
-    PS1="%F{blue}%~%F{white} $extras%(?.%(!.# .➜ ).%(!.%F{red}# %F{white}.%F{red}➜ %F{white}))"
+    PS1="%K{magenta}%F{black}%~%f%k $extras%(?.%(!.# .➜ ).%(!.%F{red}#%? %F{white}.%F{red}➜%? %F{white}))"
     export PS1
 }
 
@@ -45,17 +43,19 @@ function git_project_ver() {
     extras=""
     if [ -d ".git" ]; then
         extras="on %F{cyan}$(git branch | sed 's/*//')%F{white} "
+        if [ -n "$(git status --porcelain)" ]; then
+            extras+="with %F{red}$(git status --porcelain | wc -l | xargs)%F{white} uncommitted changes "
+        fi
     fi
-    PS1="%F{blue}%~%F{white} $extras%(?.%(!.# .➜ ).%(!.%F{red}# %F{white}.%F{red}➜ %F{white}))"
+    PS1="%K{magenta}%F{black}%~%f%k $extras%(?.%(!.# .➜).%(!.%F{red}#%? %F{white}.%F{red}➜%? %F{white})) "
     export PS1
 }
 
-precmd_functions+=( git_project_ver node_project_ver )
-
-PS1="%F{blue}%~%F{white} %(?.%(!.# .➜ ).%(!.%F{red}# %F{white}.%F{red}➜ %F{white}))"
+PS1="%K{magenta}%F{black}%~%f%k %(?.%(!.# .➜ ).%(!.%F{red}#%? %F{white}.%F{red}➜%? %F{white}))"
 PS3="select>"
 RPROMPT="%* | $(batt_level)"
 
 export PS1
 export PS3
 export RPROMPT
+precmd_functions+=( node_project_ver git_project_ver )
