@@ -1,5 +1,6 @@
 # shellcheck disable=SC2148
 # This script is written for ZSH, which is not supported by shellcheck
+# To use this prompt, you must use a Nerd Font in your terminal, which can be downloaded here: https://www.nerdfonts.com/font-downloads
 # TODO: Add support for other shells, support multiple 'extras', eg. displaying the git branch ad the node project version at the same time
 function batt_level() {
     level=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
