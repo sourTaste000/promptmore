@@ -8,7 +8,7 @@ ____________________________________________
 To Install
 ____________________________________________
     Secure and Safe:
-        curl "https://raw.githubusercontent.com/sourTaste000/promptmore/master/install.sh" | sh # hey at least the install script is still POSIX sh
+        curl "https://raw.githubusercontent.com/sourTaste000/promptmore/master/install.sh" | sh
 
     Webscale:
         TODO
